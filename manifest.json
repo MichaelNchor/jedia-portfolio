@@ -1,34 +1,29 @@
 {
-  "name": "Animesh Rawat - Portfolio",
-  "short_name": "Animesh Rawat",
+  "name": "Jedia Andoh \u00b7 AI Data Operations Specialist",
+  "short_name": "Jedia Andoh",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#fff",
-  "theme_color": "#6E57E0",
+  "background_color": "#f1eee7",
+  "theme_color": "#f1eee7",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/assets/img/PwaImages/android/android-launchericon-72-72.png",
+      "src": "assets/img/favicons/jedia-32.png",
       "type": "image/png",
-      "sizes": "72x72"
+      "sizes": "32x32"
     },
     {
-      "src": "/assets/img/PwaImages/android/android-launchericon-96-96.png",
+      "src": "assets/img/favicons/jedia-180.png",
       "type": "image/png",
-      "sizes": "96x96"
+      "sizes": "180x180"
     },
     {
-      "src": "/assets/img/PwaImages/android/android-launchericon-144-144.png",
-      "type": "image/png",
-      "sizes": "144x144"
-    },
-    {
-      "src": "/assets/img/PwaImages/android/android-launchericon-192-192.png",
+      "src": "assets/img/favicons/jedia-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/assets/img/PwaImages/android/android-launchericon-512-512.png",
+      "src": "assets/img/favicons/jedia-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
