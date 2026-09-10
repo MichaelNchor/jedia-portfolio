@@ -791,10 +791,30 @@ html.dark .theme-toggle .icon-moon { display: none; }
   .hero-summary { margin-inline: auto; }
   .hero-cta { justify-content: center; }
 
-  .portrait-wrap { max-width: 100%; margin-inline: auto; }
-  .portrait-meta { justify-content: center; gap: 0.9rem; }
-  .portrait-meta span + span::before { content: "\00B7"; margin-right: 0.9rem; color: var(--line); }
-  .guide { display: none; }
+  /* stacked hero on phones: name, portrait, then the rest of the copy */
+  .hero { padding-top: calc(64px + 1.5rem); }
+  .hero-grid { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  /* let the copy block's children order individually around the portrait */
+  .hero-grid > div:first-child { display: contents; }
+  .hero h1 { order: 1; text-align: center; }
+  .hero-role { order: 3; justify-content: center; text-align: center; margin-top: 1.75rem; }
+  .hero-summary { order: 4; text-align: center; }
+  .hero-cta { order: 5; justify-content: center; }
+  .hero h1, .hero-role, .hero-summary, .hero-cta { width: 100%; }
+
+  .portrait-wrap {
+    order: 2;
+    width: min(86vw, 360px);
+    max-width: none;
+    margin-top: 1.75rem;
+    margin-inline: auto;
+    animation-delay: 0.05s;
+  }
+  .portrait { aspect-ratio: 1 / 1; }
+  .portrait img { object-position: 46% 18%; }
+  /* strip the annotation motif on phones — just the photo */
+  .guide, .portrait-meta, .alabel, .handle { display: none; }
+  .abox::before { content: none; }
 
   .sec-head { justify-content: center; text-align: center; }
   .sec-head .sec-note { margin-inline: auto; }
