@@ -47,11 +47,22 @@
           io.unobserve(e.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px -6% 0px' });
 
     reveals.forEach(function (el, i) {
       el.style.transitionDelay = (i % 5) * 60 + 'ms';
       io.observe(el);
+    });
+
+    // Safety net: never leave content invisible if the observer misses an
+    // element (very tall sections, late layout, restored scroll positions).
+    window.addEventListener('load', function () {
+      window.setTimeout(function () {
+        reveals.forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+        });
+      }, 400);
     });
   } else {
     reveals.forEach(function (el) { el.classList.add('in'); });
