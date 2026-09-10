@@ -170,6 +170,20 @@ html.dark {
 }
 html.dark .grain::after { opacity: 0.045; mix-blend-mode: multiply; }
 
+/* ---------- THEME SWEEP (View Transitions) ----------
+   The new theme is revealed by a circle growing out of the toggle. */
+@keyframes vt-circle-in {
+  from { clip-path: circle(0px at var(--vt-x, 50%) var(--vt-y, 50%)); }
+  to   { clip-path: circle(var(--vt-r, 100vmax) at var(--vt-x, 50%) var(--vt-y, 50%)); }
+}
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) {
+  z-index: 9999;
+  animation: vt-circle-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 /* ---------- THEME TOGGLE ---------- */
 .theme-toggle {
   display: grid;
@@ -720,7 +734,7 @@ html.dark .theme-toggle .icon-moon { display: none; }
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; align-items: start; }
-  .portrait-wrap { max-width: 340px; margin-top: 2.75rem; }
+  .portrait-wrap { max-width: 420px; margin-top: 2.75rem; }
   .about-grid { grid-template-columns: 1fr; }
   .role { grid-template-columns: 46px minmax(0, 1fr); gap: 1rem; }
   .role-body { grid-column: 1 / -1; padding-top: 0.75rem; }
@@ -766,4 +780,30 @@ html.dark .theme-toggle .icon-moon { display: none; }
   .rv { opacity: 1; transform: none; }
   .sec-head h2 .w { opacity: 1; transform: none; }
   .marquee { animation: none; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
+}
+
+/* ---------- MOBILE COMPOSITION ---------- */
+@media (max-width: 760px) {
+  .hero-grid > div:first-child { text-align: center; }
+  .hero-eyebrow { justify-content: center; }
+  .hero-role { justify-content: center; text-align: center; }
+  .hero-summary { margin-inline: auto; }
+  .hero-cta { justify-content: center; }
+
+  .portrait-wrap { max-width: 100%; margin-inline: auto; }
+  .portrait-meta { justify-content: center; gap: 0.9rem; }
+  .portrait-meta span + span::before { content: "\00B7"; margin-right: 0.9rem; color: var(--line); }
+  .guide { display: none; }
+
+  .sec-head { justify-content: center; text-align: center; }
+  .sec-head .sec-note { margin-inline: auto; }
+
+  .contact-panel { text-align: center; }
+  .contact-lede { margin-inline: auto; }
+  .contact-actions { justify-content: center; }
+  .detail-card { align-items: center; }
+  .contact-panel .tag { display: block; }
+
+  .foot { justify-content: center; text-align: center; }
 }

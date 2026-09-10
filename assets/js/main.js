@@ -118,9 +118,42 @@
     syncToggle();
   }
 
+  // Reveal the new theme with a circle growing out of the toggle itself.
+  function toggleTheme(event) {
+    var next = !isDark();
+    var reduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (typeof document.startViewTransition !== 'function' || reduced) {
+      setTheme(next);
+      return;
+    }
+
+    var rect = themeToggle.getBoundingClientRect();
+    var x = event && event.clientX ? event.clientX : rect.left + rect.width / 2;
+    var y = event && event.clientY ? event.clientY : rect.top + rect.height / 2;
+    // Radius that reaches the furthest corner of the viewport.
+    var r = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    var root = document.documentElement;
+    root.style.setProperty('--vt-x', x + 'px');
+    root.style.setProperty('--vt-y', y + 'px');
+    root.style.setProperty('--vt-r', r + 'px');
+
+    var transition = document.startViewTransition(function () { setTheme(next); });
+    transition.finished.then(function () {
+      root.style.removeProperty('--vt-x');
+      root.style.removeProperty('--vt-y');
+      root.style.removeProperty('--vt-r');
+    }).catch(function () { /* transition skipped */ });
+  }
+
   if (themeToggle) {
     syncToggle();
-    themeToggle.addEventListener('click', function () { setTheme(!isDark()); });
+    themeToggle.addEventListener('click', toggleTheme);
   }
 
   /* ---------- YEAR ---------- */
